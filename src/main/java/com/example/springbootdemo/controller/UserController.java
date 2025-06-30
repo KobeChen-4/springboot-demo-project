@@ -1,0 +1,29 @@
+package com.example.springbootdemo.controller;
+
+import com.example.springbootdemo.model.User;
+import com.example.springbootdemo.repository.UserRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    // 创建新用户
+    @PostMapping
+    public User createUser(@Valid @RequestBody User user) {
+        return userRepository.save(user);
+    }
+
+    // 获取所有用户（用于测试）
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+}
